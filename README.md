@@ -1,4 +1,4 @@
 Digital learning materials management - Django
-Member: 
+* Member: 
   - Lê Thanh Trường
   - Trần Anh Tú
