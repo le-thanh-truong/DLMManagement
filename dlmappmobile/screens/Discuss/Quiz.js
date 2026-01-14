@@ -10,6 +10,8 @@ const Quiz = ({ route }) => {
     const [exam, setExam] = useState(null);
     const [answers, setAnswers] = useState({});
     const user = useContext(MyUserContext);
+    const [timeLeft, setTimeLeft] = useState(null);
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     const loadExam = async () => {
         try {
@@ -22,14 +24,40 @@ const Quiz = ({ route }) => {
             }
 
             const data = res.data.results ?? res.data;
-            setExam(data[0]);
+            const examData = data[0];
+
+            setExam(examData);
+            setTimeLeft(examData.duration * 60);
         } catch (err) {
             console.error(err);
         }
     };
 
+    useEffect(() => {
+        if (timeLeft === null || isSubmitted) return;
+
+        if (timeLeft <= 0) {
+            setIsSubmitted(true);
+            Alert.alert("Hết giờ", "Bài kiểm tra đã được nộp");
+            submitExam();
+            return;
+        }
+
+        const timer = setInterval(() => {
+            setTimeLeft((prev) => prev - 1);
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, [timeLeft]);
+
+    const formatTime = (seconds) => {
+        const m = Math.floor(seconds / 60);
+        const s = seconds % 60;
+        return `${m}:${s < 10 ? "0" : ""}${s}`;
+    };
+
     const selectAnswer = (questionId, choiceId) => {
-        setAnswers({ ...answers, [questionId]: choiceId});
+        setAnswers({ ...answers, [questionId]: choiceId });
     };
 
     const submitExam = async () => {
@@ -48,7 +76,7 @@ const Quiz = ({ route }) => {
         } catch (ex) {
             console.error(ex);
 
-            Alert.alert( "Lỗi", "Không thể nộp bài.");
+            Alert.alert("Lỗi", "Không thể nộp bài.");
         }
     };
 
@@ -58,12 +86,12 @@ const Quiz = ({ route }) => {
     }, []);
 
     if (!exam) {
-    return (
-        <View style={MyStyles.padding}>
-            <Text>Đang tải bài kiểm tra...</Text>
-        </View>
-    );
-}
+        return (
+            <View style={MyStyles.padding}>
+                <Text>Đang tải bài kiểm tra...</Text>
+            </View>
+        );
+    }
 
     return (
         <FlatList style={MyStyles.padding} data={exam.questions} keyExtractor={(item) => item.id.toString()}
@@ -77,6 +105,13 @@ const Quiz = ({ route }) => {
                         <Card.Content>
                             <Text>{exam.description}</Text>
                             <Text>Điểm đạt: {exam.pass_score}</Text>
+                            <Text style={{ fontWeight: "bold", marginTop: 8 }}>
+                                Thời gian còn lại: {formatTime(timeLeft)}
+                            </Text>
+                            <ProgressBar
+                                progress={timeLeft / (exam.duration * 60)}
+                                style={{ marginTop: 8, height: 8 }}
+                            />
                         </Card.Content>
                     </Card>
                 </>
@@ -89,7 +124,7 @@ const Quiz = ({ route }) => {
                         </Text>
 
                         <RadioButton.Group
-                            onValueChange={(value) => selectAnswer(item.id, value) }
+                            onValueChange={(value) => selectAnswer(item.id, value)}
                             value={answers[item.id]}
                         >
                             {item.choices.map((c) => (

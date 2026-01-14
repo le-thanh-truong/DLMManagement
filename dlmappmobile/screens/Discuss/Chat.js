@@ -49,7 +49,7 @@ const Chat = () => {
     if (!currentUser) {
         return (
             <View style={[MyStyles.container, MyStyles.padding, {justifyContent: 'center', alignItems: 'center'}]}>
-                <Text>Vui lòng đăng nhập để sử dụng tính năng Chat.</Text>
+                <Text>Vui lòng đăng nhập</Text>
             </View>
         )
     }

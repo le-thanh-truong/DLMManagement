@@ -38,16 +38,6 @@ const MaterialDetail = ({ route }) => {
         res = await Apis.get(url);
       }
       setComments(res.data)
-      // if(res.data.next === null)
-      //     setPage(0);
-
-      // if(page === 1){
-      //     setCourses(res.data)
-      // }
-      // else if( page > 1){
-      //     setCourses([...courses, ...res.data])
-      // }
-
     } catch (ex) {
       console.error(ex);
     } finally {

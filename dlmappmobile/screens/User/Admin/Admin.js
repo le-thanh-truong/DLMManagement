@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from "react";
 import { MyUserContext } from "../../../configs/MyUserContext";
 import { FlatList } from "react-native";
 import MyStyles from "../../../styles/MyStyles";
+import moment from "moment";
 
 const Admin = () => {
     const navigation = useNavigation();
@@ -74,7 +75,7 @@ const Admin = () => {
 
                     <Text> Số tiền: {item.total_amount ?? 0} VNĐ </Text>
 
-                    <Text> Ngày: {item.created_date ?? "--"} </Text>
+                    <Text> Ngày: {moment(item.created_date).format("DD/MM/YYYY, h:mm:ss ")} </Text>
 
                     <View style={{ flexDirection: "row", marginTop: 8 }}>
                         <Chip style={{ marginRight: 8 }}> {item.payment_method ?? "-"} </Chip>

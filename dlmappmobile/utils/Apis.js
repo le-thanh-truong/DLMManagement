@@ -23,7 +23,10 @@ export const endpoints = {
     'stats/student-stats': '/stats/student-stats/',
     'stats/admin-stats': '/stats/admin-stats/',
     'enrollments': "/enrollments/",
-    'recommendations': '/recommendations/'
+    'recommendations': '/recommendations/',
+    'chatRooms' : '/chat-rooms/',
+    'chatRoomMessages': (roomId) =>`/chat-rooms/${roomId}/messages/`,
+    'messages': "/messages/",
 }
 
 export const authApi = (accessToken) => axios.create({

@@ -23,9 +23,6 @@ const Lessons = () => {
                 url = `${url}&q=${q}`
             }
 
-
-            console.info(url);
-
             let res = await Apis.get(url);
             setLessons(res.data)
             

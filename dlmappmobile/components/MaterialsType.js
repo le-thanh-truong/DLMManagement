@@ -30,13 +30,11 @@ const MarterialsType =({setMaterialType}) => {
     return(
         <View style={MyStyles.row}>
             <ScrollView horizontal style={MyStyles.margin}>
-                {/* <TouchableOpacity>  */}
                     {materialsType.map(item => (<Chip key={item.value} icon={item.icon} 
                                                       selected={type === item.value} 
                                                       onPress={() => setMaterialType(item.value)}
                                                     style={MyStyles.margin}>{item.label}</Chip>
                                     ))}
-                 {/* </TouchableOpacity> */}
             </ScrollView>
         </View>
     );
