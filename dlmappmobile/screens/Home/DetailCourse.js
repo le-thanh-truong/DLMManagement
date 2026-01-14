@@ -5,11 +5,12 @@ import MyStyles from "../../styles/MyStyles";
 import { ActivityIndicator } from "react-native";
 import { Button } from "react-native-paper";
 import { MyUserContext } from "../../configs/MyUserContext";
+import { useNavigation } from "@react-navigation/native";
 
 
 const DetailCourse = ({ route }) => {
     const [course, setCourses] = useState(null);
-
+    const navigation = useNavigation();
     const [loading, setLoading] = useState(true);
     const [enrolling, setEnrolling] = useState(false);
     const courseId = route.params?.courseId;
@@ -29,27 +30,6 @@ const DetailCourse = ({ route }) => {
             setLoading(false);
         }
     }
-
-    const enroll = async () => {
-        try {
-
-            setEnrolling(true);
-            const api = authApi(user.token);
-
-            await api.post(endpoints.enrollments, {
-                course: course.id
-            });
-
-            Alert.alert("Đăng kí thành công");
-        } catch (err) {
-            console.log("ERROR:", err.response?.data);
-            Alert.alert("Lỗi", "Bạn đã đăng ký!");
-        } finally {
-            setEnrolling(false);
-        }
-    };
-
-
 
     useEffect(() => {
         loadDetail();
@@ -90,8 +70,8 @@ const DetailCourse = ({ route }) => {
                 <Text style={[MyStyles.padding, MyStyles.text]}>Giá: {course.price} VNĐ</Text>
 
                 {user?.role === 3 && (
-                    <Button mode="contained" loading={enrolling} onPress={enroll} style={{ marginTop: 15 }}>
-                        Đăng ký khóa học
+                    <Button mode="contained" loading={enrolling} onPress={() => navigation.navigate("Payment", { course: course })} style={{ marginTop: 15 }}>
+                        Đăng kí ngay
                     </Button>
                 )}
 

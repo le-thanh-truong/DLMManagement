@@ -61,7 +61,7 @@ const MaterialDetail = ({ route }) => {
 
       setComments(prev => [res.data, ...prev]);
 
-      setCommentText(""); // clear input
+      setCommentText(""); 
 
     } catch (ex) {
       console.error( ex);

@@ -18,6 +18,9 @@ import AdminLogout from "./screens/User/Admin/AdminLogout";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import MyStyles from "./styles/MyStyles";
 import AdminStats from "./screens/User/Admin/AdminStats";
+import AdminMaterials from "./screens/User/Admin/AdminMaterials";
+import MaterialCreate from "./screens/User/Admin/MaterialCreate";
+import Payment from "./screens/Home/Payment";
 
 
 const Stack = createNativeStackNavigator();
@@ -26,6 +29,7 @@ const StackNavigator = () => {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Course" component={Home} options={{ title: "Khóa học" }} />
             <Stack.Screen name="Course Detail" component={DetailCourse} options={{ title: "Chi tiết khóa học" }} />
+            <Stack.Screen name="Payment" component={Payment} options={{ title: 'Thanh toán' }} />
         </Stack.Navigator>
     );
 }
@@ -61,11 +65,11 @@ const AuthStackNavigator = () => {
     );
 }
 
-const TransactionStackNavigator = () => {
+const AdminStack = () => {
     return (
-        <Stack.Navigator >
-            <Stack.Screen name="Admin" component={Admin} />
-            <Stack.Screen name="AdminLogout" component={AdminLogout} />
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="AdminMaterials" component={AdminMaterials} />
+            <Stack.Screen name="MaterialCreate" component={MaterialCreate} />
         </Stack.Navigator>
     );
 }
@@ -85,6 +89,7 @@ const TopTabAdmin = () => {
         <TopTab.Navigator style={[MyStyles.margin, MyStyles.marginTop]}>
             <TopTab.Screen name="Giao dịch" component={Admin} options={{ title: "Giao dịch" }} />
             <TopTab.Screen name="Thống kê" component={AdminStats} options={{ title: "Thống kê" }} />
+            <TopTab.Screen name="Tài liệu" component={AdminStack} options={{ title: "Tài liệu" }} />
         </TopTab.Navigator>
     );
 }
