@@ -4,6 +4,7 @@ import MyStyles from "../styles/MyStyles";
 import Apis, { endpoints } from "../utils/Apis";
 import { List, Searchbar } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
+import moment from "moment";
 
 const Courses = ({ cate }) => {
     const navigation = useNavigation();
@@ -70,7 +71,7 @@ const Courses = ({ cate }) => {
             <FlatList ListFooterComponent={loading && <ActivityIndicator size="large" />} data={courses} onEndReached={loadMore} 
                       renderItem={({ item }) => <List.Item
                                                 title={item.subject}
-                                                description={item.description}
+                                                description={moment(item.created_date).format("DD/MM/YYYY")}
                                                 left={() => <TouchableOpacity onPress={() => { navigation.navigate("Course Detail", { courseId: item.id }) }} >
                                                     <Image source={item.image ? { uri: item.image } : require('../assets/images/memecat2.jpg')} style={MyStyles.avatar} />
                                                 </TouchableOpacity>} />

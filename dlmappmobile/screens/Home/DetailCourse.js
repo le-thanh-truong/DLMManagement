@@ -1,34 +1,59 @@
-import { useEffect, useState } from "react";
-import Apis, { endpoints } from "../../utils/Apis";
-import { Image, Text, View } from "react-native";
+import { useContext, useEffect, useState } from "react";
+import Apis, { authApi, endpoints } from "../../utils/Apis";
+import { Alert, Image, Text, View } from "react-native";
 import MyStyles from "../../styles/MyStyles";
 import { ActivityIndicator } from "react-native";
+import { Button } from "react-native-paper";
+import { MyUserContext } from "../../configs/MyUserContext";
 
 
-const DetailCourse = ({route}) => {
-    const [course, setCourses] = useState([]);
+const DetailCourse = ({ route }) => {
+    const [course, setCourses] = useState(null);
+
     const [loading, setLoading] = useState(true);
-    const courseId = route.params?.courseId
+    const [enrolling, setEnrolling] = useState(false);
+    const courseId = route.params?.courseId;
+    const user = useContext(MyUserContext);
 
     const loadDetail = async () => {
-        try{
+        try {
             setLoading(true)
-        
+
             let res = await Apis.get(`${endpoints['courses']}${courseId}/`);
 
             setCourses(res.data)
-                
-            } catch (ex) {
-                console.error(ex);
-            } finally{
-                setLoading(false);
+
+        } catch (ex) {
+            console.error(ex);
+        } finally {
+            setLoading(false);
         }
     }
 
-    useEffect(() =>{
+    const enroll = async () => {
+        try {
+
+            setEnrolling(true);
+
+            await authApi().post(endpoints.enrollments, {
+                course: course.id
+            });
+
+            Alert.alert("Thành công", "Bạn đã đăng ký khóa học!");
+        } catch (err) {
+            console.log("ERROR:", err.response?.data);
+            Alert.alert("Lỗi", "Bạn đã đăng ký!");
+        } finally {
+            setEnrolling(false);
+        }
+    };
+
+
+
+    useEffect(() => {
         loadDetail();
     }, [courseId])
-    
+
     if (loading) {
         return (
             <View style={MyStyles.container}>
@@ -45,17 +70,32 @@ const DetailCourse = ({route}) => {
         );
     }
 
-    return(
-        <View style={MyStyles.header}>
-            <Image source={course.image ? { uri: course.image } : require('../../assets/images/memecat2.jpg')}style={[MyStyles.avatar]} />
-            <View style={MyStyles.textContainer}> 
-                <Text style={ MyStyles.title}>{course.subject}</Text>
-                <View style={MyStyles.row}> 
-                    <Text style={[MyStyles.context, MyStyles.textContainer]}>Khóa học số: </Text>
-                    <Text style={[MyStyles.context, MyStyles.textContainer]}>Bài học: </Text>
+
+    return (
+        <>
+            <View style={[MyStyles.header, {marginTop: 38}]}>
+                <Image source={course.image ? { uri: course.image } : require('../../assets/images/memecat2.jpg')} style={[MyStyles.avatar]} />
+                <View style={MyStyles.textContainer}>
+                    <Text style={MyStyles.title}>{course.subject}</Text>
+                    <View style={MyStyles.row}>
+                        <Text style={[MyStyles.context, MyStyles.textContainer]}>Khóa học số: </Text>
+                        <Text style={[MyStyles.context, MyStyles.textContainer]}>Bài học: </Text>
+                    </View>
                 </View>
             </View>
-        </View>
+            <View>
+                <Text style={[MyStyles.padding]}>{course.description}</Text>
+                <Text style={[MyStyles.padding, MyStyles.text]}>Giá: {course.price} VNĐ</Text>
+
+               {user?.role === 3 && (
+                    <Button mode="contained" loading={enrolling} onPress={enroll}style={{ marginTop: 15 }}>
+                        Đăng ký khóa học
+                    </Button>
+                )}
+
+
+            </View>
+        </>
     );
 }
 

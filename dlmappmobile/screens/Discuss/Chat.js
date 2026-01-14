@@ -73,13 +73,10 @@ const Chat = () => {
                         onPress={() => navigation.navigate("ChatDetail", { user: item })} 
                         style={[MyStyles.row, MyStyles.padding, { alignItems: 'center', borderBottomWidth: 1, borderBottomColor: '#eee' }]}
                     >
-                        {/* Avatar */}
                         <Image 
                             source={item.avatar ? { uri: item.avatar } : require('../../assets/images/memecat2.jpg')} 
-                            style={{ width: 60, height: 60, borderRadius: 30, marginRight: 15 }} 
+                            style={MyStyles.image} 
                         />
-                        
-                        {/* Thông tin User */}
                         <View style={{ flex: 1 }}>
                             <Text style={[MyStyles.title, { fontSize: 16 }]}>
                                 {item.last_name + " " + item.first_name}

@@ -27,6 +27,7 @@ const StackQuestions =() =>{
             <Stack.Screen name="Lesson" component={Lessons} options={{title: "Bài học"}}/>
             <Stack.Screen name="Forum" component={Forum} options={{title: "Diễn đàn bài học"}}/>
             <Stack.Screen name="Add question" component={AddQuestion}/>
+            <Stack.Screen name="Quiz" component={Quiz}/>
         </Stack.Navigator>
     );
 }
@@ -36,7 +37,6 @@ const Discuss = () => {
             <Tab.Navigator style={[MyStyles.marginTop, MyStyles.margin]}>
                 <Tab.Screen name="Chat" component={StackChat} options={{title: "Chat"}}/>
                 <Tab.Screen name="Lesson" component={StackQuestions} options={{title: "Bài học"}}/>
-                <Tab.Screen name="Quiz" component={Quiz} options={{title: "Quiz"}}/>
             </Tab.Navigator>
         );
 }

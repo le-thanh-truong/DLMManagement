@@ -7,6 +7,7 @@ export const endpoints = {
     'lessons': '/lessons/',
     'courses': '/courses/',
     'materials': '/materials/',
+    'learning-progress': '/learning-progress/',
     'topics': '/topics/',
     'users': '/users/',
     'login': '/login/',
@@ -16,6 +17,12 @@ export const endpoints = {
     'answers': '/answers/',
     'likes': '/likes/',
     'notes': '/notes/',
+    'exams': '/exams/',
+    'submitExam': (id) => `/exams/${id}/submit/`,
+    'orders': '/orders/',
+    'stats/student-stats': '/stats/student-stats/',
+    'enrollments': "/enrollments/",
+    'recommendations': '/recommendations/'
 }
 
 export const authApi = (accessToken) => axios.create({

@@ -99,8 +99,12 @@ const Forum = ({ route }) => {
                     </TouchableOpacity>
                 )} />
             <FAB icon="plus"
-                style={{ position: "absolute", right: 16, bottom: 16, backgroundColor: "#dddbe7ff" }}
+                style={{ position: "absolute", right: 16, bottom: 100, backgroundColor: "#dddbe7ff" }}
                 onPress={() => navigation.navigate("Add question", { lessonId })}
+            />
+            <FAB icon="tooltip-edit"
+                style={{ position: "absolute", right: 16, bottom: 30, backgroundColor: "#dddbe7ff" }}
+                onPress={() => navigation.navigate("Quiz", { lessonId })}
             />
         </>
     );

@@ -24,7 +24,7 @@ const AddQuestion = ({ route, navigation }) => {
                     lesson: lessonId
                 });
             } else {
-                res = await Apis.post(endpoints.questions, {
+                res = await Apis.post(endpoints['questions'], {
                     title,
                     content,
                     lesson: lessonId

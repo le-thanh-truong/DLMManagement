@@ -121,7 +121,7 @@ const Materials = ({materialType}) =>{
                                   renderItem={({ item }) => <List.Item style={MyStyles.title}
                                                             title={item.name}
                                                             description={`Loại: ${getMaterialType(item.material_type)}`}
-                                                             left={() => <TouchableOpacity onPress={()=> { navigation.navigate("Material detail", {urlMaterial: item.file_upload})}} >
+                                                             left={() => <TouchableOpacity onPress={()=> { navigation.navigate("Material detail", {material: item})}} >
                                                                                 <Image source={item.file_upload ? { uri: item.file_upload } : require('../assets/images/word.png')} style={MyStyles.avatar} />
                                                                          </TouchableOpacity>} 
                                                             />} 

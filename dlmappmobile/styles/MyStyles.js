@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: 8
+        marginTop: 5
     },
     marginTop : {
         marginTop: 25,
@@ -24,7 +24,7 @@ export default StyleSheet.create({
         flexWrap: 'wrap',
     },
      margin: {
-        margin: 4
+        margin: 4,
      },
      middle: {
         marginLeft: 180
@@ -40,10 +40,10 @@ export default StyleSheet.create({
     header: {
         flexDirection: 'row',
         backgroundColor: '#055a8bff',
-        padding: 12,
+        padding: 10,
         borderRadius: 16,
         alignItems: 'center',  
-        margin: 12,
+        margin: 8,
     },
     textContainer: {
         marginLeft: 10,
@@ -63,7 +63,6 @@ export default StyleSheet.create({
     },
     text: {
         color: 'black',
-        fontSize: 10,
         flexWrap: 'wrap',      
         fontSize: 12
     },

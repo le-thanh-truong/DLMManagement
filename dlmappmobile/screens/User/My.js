@@ -15,7 +15,7 @@ const My = () => {
     }
 
     return (
-        <View style={[MyStyles.container, MyStyles.padding, { alignItems: 'center' }]}>
+        <View style={[MyStyles.container, MyStyles.padding, { alignItems: 'center' }, MyStyles.marginTop]}>
             <Avatar.Image 
                 size={100} 
                 source={user?.avatar ? { uri: user.avatar } : require('../../assets/images/memecat2.jpg')} 
