@@ -34,12 +34,13 @@ const DetailCourse = ({ route }) => {
         try {
 
             setEnrolling(true);
+            const api = authApi(user.token);
 
-            await authApi().post(endpoints.enrollments, {
+            await api.post(endpoints.enrollments, {
                 course: course.id
             });
 
-            Alert.alert("Thành công", "Bạn đã đăng ký khóa học!");
+            Alert.alert("Đăng kí thành công");
         } catch (err) {
             console.log("ERROR:", err.response?.data);
             Alert.alert("Lỗi", "Bạn đã đăng ký!");
@@ -73,7 +74,7 @@ const DetailCourse = ({ route }) => {
 
     return (
         <>
-            <View style={[MyStyles.header, {marginTop: 38}]}>
+            <View style={[MyStyles.header, { marginTop: 38 }]}>
                 <Image source={course.image ? { uri: course.image } : require('../../assets/images/memecat2.jpg')} style={[MyStyles.avatar]} />
                 <View style={MyStyles.textContainer}>
                     <Text style={MyStyles.title}>{course.subject}</Text>
@@ -84,11 +85,12 @@ const DetailCourse = ({ route }) => {
                 </View>
             </View>
             <View>
+                <Text style={[MyStyles.padding, { fontSize: 18 }]}>Giới thiệu: </Text>
                 <Text style={[MyStyles.padding]}>{course.description}</Text>
                 <Text style={[MyStyles.padding, MyStyles.text]}>Giá: {course.price} VNĐ</Text>
 
-               {user?.role === 3 && (
-                    <Button mode="contained" loading={enrolling} onPress={enroll}style={{ marginTop: 15 }}>
+                {user?.role === 3 && (
+                    <Button mode="contained" loading={enrolling} onPress={enroll} style={{ marginTop: 15 }}>
                         Đăng ký khóa học
                     </Button>
                 )}

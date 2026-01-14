@@ -68,7 +68,7 @@ const Admin = () => {
                 <Card.Content>
                     <Text variant="titleMedium"> Giao dịch {item.id} </Text>
 
-                    <Text> gười dùng: {item.user ?? "-"} </Text>
+                    <Text> Người dùng: {item.user ?? "-"} </Text>
 
                     <Text> Khóa học: {item.course_info?.subject ?? "-"} </Text>
 

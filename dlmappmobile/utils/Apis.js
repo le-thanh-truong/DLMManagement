@@ -21,6 +21,7 @@ export const endpoints = {
     'submitExam': (id) => `/exams/${id}/submit/`,
     'orders': '/orders/',
     'stats/student-stats': '/stats/student-stats/',
+    'stats/admin-stats': '/stats/admin-stats/',
     'enrollments': "/enrollments/",
     'recommendations': '/recommendations/'
 }

@@ -12,7 +12,7 @@ const AdminStats = () => {
     const loadStats = async () => {
         try {
             setLoading(true);
-            const res = await authApi(user.token).get(endpoints['stats/student-stats']);
+            const res = await authApi(user.token).get(endpoints['stats/admin-stats']);
             setStats(res.data);
         } catch (err) {
             console.error(err);

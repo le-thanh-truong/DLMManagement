@@ -31,7 +31,7 @@ const Recommendations = () => {
             <FlatList horizontal data={courses} keyExtractor={item => item.id.toString()}
                 showsHorizontalScrollIndicator={false}
                 renderItem={({ item }) => (
-                    <TouchableOpacity style={{ width: 200, margin: 8 }} onPress={() =>
+                    <TouchableOpacity style={{ width: 150, margin: 8 }} onPress={() =>
                             navigation.navigate("Course Detail", { courseId: item.id })}>
                         <Image
                             source={{ uri: item.image }}
