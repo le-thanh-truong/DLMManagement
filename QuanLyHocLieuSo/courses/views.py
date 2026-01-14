@@ -320,15 +320,19 @@ class OrderViewSet(viewsets.ModelViewSet):
         return Response({'status': 'Payment confirmed and Course enrolled'}, status=status.HTTP_200_OK)
 
 
-class EnrollmentViewSet(viewsets.ReadOnlyModelViewSet):
+class EnrollmentViewSet(viewsets.ModelViewSet):
     queryset = Enrollment.objects.all()
     serializer_class = EnrollmentSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        if self.request.user.role == User.TEACHER:
-            return Enrollment.objects.filter(course__teacher=self.request.user)
-        return Enrollment.objects.filter(student=self.request.user)
+        user = self.request.user
+        if user.role == User.TEACHER:
+            return Enrollment.objects.filter(course__teacher=user)
+        return Enrollment.objects.filter(student=user)
+
+    def perform_create(self, serializer):
+        serializer.save(student=self.request.user)
 
 
 class LearningProgressViewSet(viewsets.ModelViewSet):

@@ -26,7 +26,7 @@ const Payment = ({ route, navigation }) => {
             .toUpperCase();
     };
 
-    const transferContent = `${user?.username} - ${removeDiacritics(course.subject)}`;
+    const transferContent = `${removeDiacritics(user?.last_name)}${user.user_id} - ${removeDiacritics(course.subject)}`;
 
     const qrUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-${TEMPLATE}.png?amount=${course.price}&addInfo=${encodeURIComponent(transferContent)}&accountName=${encodeURIComponent(ACCOUNT_NAME)}`;
 
